@@ -2,7 +2,9 @@ from firedrake import *
 
 ## Class to solve mixed Poisson problem.
 #
-# This class solves the mixed Poisson equation using BDM-DG elements.
+# This class solves the mixed Poisson equation 
+# \f$ \nabla\cdot \sigma = f \f$, \f$ \sigma+\nabla u = 0 \f$
+# using BDM-DG elements.
 class PoissonMixed:
     
     ##Contructor of PoissonMixed class.
@@ -55,7 +57,7 @@ class PoissonMixed:
     ## Form and function setup.
     #
     # Define test and trial functions on the subspaces of the mixed function
-    # spaces. The define the variational forms.
+    # spaces. Then define the variational forms.
     def setup_form(self):
         self.sigma, self.u = TrialFunctions(self.W)
         self.tau, self.v = TestFunctions(self.W)
