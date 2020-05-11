@@ -109,9 +109,26 @@ class PoissonMixed:
             warning("Matplotlib not imported")
         
         try:
-            plot(self.u)
+            # Create figure
+            fig, axes = plt.subplots(1, 2, figsize=(16,8))
+            
+            # set alias for axes and create first plot
+            ax = axes[0]
+            plt_sigma = quiver(self.sigma, axes=ax, scale=3.0, cmap="inferno")
+            fig.colorbar(plt_sigma, ax=axes[0])
+            ax.set_xlabel("x")
+            ax.set_ylabel("y")
+            ax.set_title("sigma")
+            
+            # set alias for axes and create second plot
+            ax = axes[1]
+            plt_u = tripcolor(self.u, axes=ax, cmap="summer")
+            fig.colorbar(plt_u, ax=ax)
+            ax.set_xlabel("x")
+            ax.set_ylabel("y")
+            ax.set_title("u")
         except Exception as e:
-            warning("Cannot plot figure. Error msg '%s'" % e)
+            warning("Cannot plot figure. Error msg: '%s'" % e)
         
         try:
             plt.show()
