@@ -18,7 +18,7 @@ of Firedrake.
 Follow Firedrake's [installation instructions](https://www.firedrakeproject.org/download.html). It will install Firedrake 
 in the folder where you run it from and build it in a virtual environment so it will not mess with your system. The installer may ask you to install missing packages.
 
-*Note*: On Windows Subsystem for Linux I advise you to use the --minimal-patsc option so that the installation command should look like
+*Note*: On Windows Subsystem for Linux I advise you to use the --minimal-petsc option so that the installation command should look like
 
 ```
 python3 firedrake-install --minimal-petsc
