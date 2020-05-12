@@ -12,12 +12,8 @@ class PoissonMixed:
     # Setup all necessary stuff to solve the problem.
     #
     # @param[in] n integer grid parameter x-direction
-    # @param[in] y integer grid parameter y-direction
+    # @param[in] m integer grid parameter y-direction
     def __init__(self, n, m):
-        """ This is a normal docstring for python. 
-        ---> Does not integrate well with doxygen's special functions.
-        Added little feature.
-        """        
         self.setup_mesh(n, m)
         self.setup_space()
         self.setup_data()

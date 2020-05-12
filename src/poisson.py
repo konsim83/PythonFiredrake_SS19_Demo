@@ -12,12 +12,8 @@ class Poisson:
     # Setup all necessary stuff to solve the problem.
     #
     # @param[in] n integer grid parameter x-direction
-    # @param[in] y integer grid parameter y-direction
+    # @param[in] m integer grid parameter y-direction
     def __init__(self, n, m):
-        """ This is a normal docstring for python. 
-        ---> Does not integrate well with doxygen's special functions.
-        Added little feature.
-        """        
         self.setup_mesh(n, m)
         self.setup_space()
         self.setup_data()
@@ -62,7 +58,7 @@ class Poisson:
     ## Setup boundary conditions.
     #
     # The strongly enforced boundary conditions is enforced on the entire boundary.
-    def setup_bc(self):                
+    def setup_bc(self):
         self.u_exact = Function(self.V).interpolate(cos(self.x*pi*2)*cos(self.y*pi*2))
         self.bc = DirichletBC(self.V, self.u_exact, "on_boundary")
         

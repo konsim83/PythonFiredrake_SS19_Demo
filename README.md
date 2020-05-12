@@ -1,14 +1,55 @@
-# Project PythonFiredrake
+# Example Project with Firedrake
 
-This is highlighted:
+This Python code is used for teaching purposes and is a modification of
+the 
+[Helmholtz tutorial](https://www.firedrakeproject.org/demos/helmholtz.py.html)
+of Firedrake.
 
-	Here you can add some general info about the project in markdown language.
+*To run it you will need:*
+	
+* A **Linux** distribution (I recommend Ubuntu 20.04 for beginners)
+* **Python3** v3.6 or greater (try to use the package repositories)
+* **[Paraview](www.paraview.org)** for the visualization (free of charge)
+* **[Firedrake](https://www.firedrakeproject.org/)**
 
+---
+**HINT**
 
-## Topic 1
+Follow Firedrake's [installation instructions](https://www.firedrakeproject.org/download.html). It will install Firedrake 
+in the folder where you run it from and build it in a virtual environment so it will not mess with your system.
 
-	Info about topic 1...	
+After that you will need to activate the environment (just follow the instructions). 
 
-## Topic 2
+You can also use the [Eclipse IDE](https://www.eclipse.org/) (free of charge) together with the PyDev package that you can get
+in the Eclipse Marketplace (Menu bar --> Help --> Eclipse Marketplace). In eclipse you can than import the code through `Projects from folder or archive`. Then edit the project settings and change the project natures to `Python nature`. Or use any Python IDE that you prefer. 
 
-	Info about topic 2...
+*Note* that at any rate you will need to point the IDE to use the `python3` executable that the Firedrake installation build for you. 
+
+Firedrake has a great [documentation](https://www.firedrakeproject.org/documentation.html).
+
+---	
+
+## Getting and running the examples
+
+You must first clone the repository:
+
+```
+git clone https://github.com/konsim83/Demo_Firedrake.git
+```
+and activate firedrake's virtual environment
+
+```
+source your-firedrake-install-folder/bin/activate
+```
+
+Then enter the code folder
+
+```
+cd Demo_Firedrake/
+```
+and type for example
+
+```
+python3 src/poisson.py
+```
+Open the `vtk` files that were produced in the `data/` folder with Paraview to see the result.
