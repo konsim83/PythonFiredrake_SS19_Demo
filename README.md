@@ -55,6 +55,6 @@ cd Demo_Firedrake/
 and type for example
 
 ```
-python3 src/poisson.py
+python3 src/helmholtz.py
 ```
 Open the `vtk` files that were produced in the `data/` folder with Paraview to see the result.
