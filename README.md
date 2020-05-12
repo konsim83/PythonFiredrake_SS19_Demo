@@ -8,7 +8,7 @@ of Firedrake.
 *To run it you will need:*
 	
 * A **Linux** distribution (I recommend Ubuntu 20.04 for beginners)
-* **Python3** v3.6 or greater (try to use the package repositories)
+* **Python3** and **curl** v3.6 or greater (try to use the package repositories to install them)
 * **[Paraview](www.paraview.org)** for the visualization (free of charge)
 * **[Firedrake](https://www.firedrakeproject.org/)**
 
