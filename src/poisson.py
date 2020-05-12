@@ -5,9 +5,9 @@ from firedrake import *
 # This class solves the Helmholtz \f$-\Delta u + u = f\f$ equation using on the unit square
 # \f$P_k\f$-finite elements. For the given right hand side we have an exact solution to
 # compare with.
-class Poisson:
+class Helmholtz:
     
-    ##Contructor of Poisson class.
+    ##Contructor of Helmholtz class.
     #
     # Setup all necessary stuff to solve the problem.
     #
@@ -66,7 +66,7 @@ class Poisson:
     #
     # Then we solve the linear variational problem ``a == L``
     # and advice PETSc to use a conjugate gradient method.
-    def solve_Poisson(self):
+    def solve_helmholtz(self):
         self.u = Function(self.V)            
         solve(self.a == self.L, self.u, bcs=self.bc, solver_parameters={"ksp_type": "cg"})
         
@@ -76,7 +76,7 @@ class Poisson:
     # variable on the DG space to a file in VTK format for later inspection with a
     # visualisation tool such as `ParaView <http://www.paraview.org/>`.
     def write_solution(self):                
-        File("../data/poisson_u.pvd").write(self.u)
+        File("../data/helmholtz_u.pvd").write(self.u)
 
     ## Plot solution.
     #        
@@ -125,7 +125,7 @@ class Poisson:
 
 
 if __name__ == '__main__':
-    problem = Poisson(16,16)
-    problem.solve_Poisson()
+    problem = Helmholtz(16,16)
+    problem.solve_helmholtz()
     problem.write_solution()
     problem.plot_solution()
