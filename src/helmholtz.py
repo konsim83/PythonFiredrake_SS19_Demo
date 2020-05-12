@@ -113,7 +113,7 @@ class Helmholtz:
     #
     # We compute and print the error of the solution in various
     # norms. Note hat the energy norm here is the \f$H_0^1\f$-norm.
-    def plot_solution(self):
+    def plot_error(self):
         error_l2 = sqrt(assemble(dot(self.u - self.u_exact, self.u - self.u_exact) * dx))
         print("error L2 = ", error_l2)
         
@@ -129,3 +129,4 @@ if __name__ == '__main__':
     problem.solve_helmholtz()
     problem.write_solution()
     problem.plot_solution()
+    problem.plot_error()
