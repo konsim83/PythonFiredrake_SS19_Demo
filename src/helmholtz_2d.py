@@ -1,6 +1,8 @@
 from firedrake import *
 from firedrake.norms import errornorm
 
+import os 
+
 
 ## Class to solve a Helmholtz problem with analytic solution.
 #
@@ -83,8 +85,9 @@ class Helmholtz:
     # Lastly we write the component of the solution corresponding to the primal
     # variable on the DG space to a file in VTK format for later inspection with a
     # visualisation tool such as `ParaView <http://www.paraview.org/>`.
-    def write_solution(self):                
-        File("../data/helmholtz_u.pvd").write(self.u)
+    def write_solution(self):
+        output_dir_path = os.path.dirname(os.path.realpath(__file__))
+        File(output_dir_path + "/../data/helmholtz_2d.pvd").write(self.u)
 
     ## Plot solution.
     #        

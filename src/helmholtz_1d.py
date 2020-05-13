@@ -5,6 +5,8 @@ from firedrake.plot import plot
 
 import numpy as np
 
+import os
+
 try:
     import matplotlib.pyplot as plt
 except:
@@ -86,7 +88,8 @@ class Helmholtz:
 
         
     def write_solution(self, cycle):
-        File("../data/helmholtz_u.pvd").write(self.u)
+        output_dir_path = os.path.dirname(os.path.realpath(__file__))
+        File(output_dir_path + "/../data/helmholtz_1d_cycle-" + str(cycle) + ".pvd").write(self.u)
 
 
     def plot_solution(self, cycle):       

@@ -1,5 +1,8 @@
 from firedrake import *
 
+import os
+
+
 ## Class to solve mixed Poisson problem.
 #
 # This class solves the mixed Poisson equation 
@@ -90,9 +93,10 @@ class PoissonMixed:
     # Lastly we write the component of the solution corresponding to the primal
     # variable on the DG space to a file in VTK format for later inspection with a
     # visualisation tool such as `ParaView <http://www.paraview.org/>`.
-    def write_solution(self):                
-        File("../data/poisson_mixed_u.pvd").write(self.u)
-        File("../data/poisson_mixed_sigma.pvd").write(self.sigma)
+    def write_solution(self):
+        output_dir_path = os.path.dirname(os.path.realpath(__file__))
+        File(output_dir_path + "/../data/poisson_mixed_2d_u.pvd").write(self.u)
+        File(output_dir_path + "/../data/poisson_mixed_2d_sigma.pvd").write(self.sigma)
 
     ## Plot solution.
     #        
