@@ -1,4 +1,6 @@
 from firedrake import *
+from firedrake.norms import errornorm
+
 
 ## Class to solve a Helmholtz problem with analytic solution.
 #
@@ -18,6 +20,7 @@ class Helmholtz:
         self.setup_space()
         self.setup_data()
         self.setup_form()
+        self.setup_exact_solution()
         self.setup_bc()
         
     ## Setup mesh for FEM computation.
@@ -34,7 +37,7 @@ class Helmholtz:
     # Setup a conformal function space for the problem. We use simple Lagrange elements. 
     # function space ``V``.        
     def setup_space(self):
-        self.V = FunctionSpace(self.mesh, "CG", 1)
+        self.V = FunctionSpace(self.mesh, "CG", 2)
         
     ## Declare source function 
     #
@@ -55,11 +58,16 @@ class Helmholtz:
         self.a = (dot(grad(self.v), grad(self.u)) + self.v * self.u) * dx
         self.L = self.f * self.v * dx
         
+    ## Setup exact solution
+    #
+    # The exact solutions as UFL expression
+    def setup_exact_solution(self):
+        self.u_exact = cos(self.x*pi*2)*cos(self.y*pi*2)
+        
     ## Setup boundary conditions.
     #
     # The strongly enforced boundary conditions is enforced on the entire boundary.
     def setup_bc(self):
-        self.u_exact = Function(self.V).interpolate(cos(self.x*pi*2)*cos(self.y*pi*2))
         self.bc = DirichletBC(self.V, self.u_exact, "on_boundary")
         
     ## Call the solver.
@@ -112,20 +120,19 @@ class Helmholtz:
     ## Compute error
     #
     # We compute and print the error of the solution in various
-    # norms. Note hat the energy norm here is the \f$H_0^1\f$-norm.
+    # norms. Note that the degree elevation (degree_rise) is necessary
+    # here in order to get a good accuracy when evaluating the
+    # expression for the exact solution.
     def plot_error(self):
-        error_l2 = sqrt(assemble(dot(self.u - self.u_exact, self.u - self.u_exact) * dx))
+        error_l2 = errornorm(self.u_exact, self.u, "L2", degree_rise=3)
         print("error L2 = ", error_l2)
         
-        error_energy = sqrt(assemble(dot(grad(self.u) - grad(self.u_exact), grad(self.u) - grad(self.u_exact)) * dx))
-        print("error energy norm = ", error_energy)
-        
-        error_h1 = sqrt(error_l2**2 + error_energy**2)
+        error_h1 = errornorm(self.u_exact, self.u, "H1", degree_rise=3)
         print("error h1 = ", error_h1)
 
 
 if __name__ == '__main__':
-    problem = Helmholtz(16,16)
+    problem = Helmholtz(8,8)
     problem.solve_helmholtz()
     problem.write_solution()
     problem.plot_solution()
