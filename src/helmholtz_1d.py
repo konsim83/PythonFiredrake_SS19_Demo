@@ -49,7 +49,7 @@ class Helmholtz:
     def setup_data(self):                
         self.x = SpatialCoordinate(self.mesh)
         self.f = Function(self.V)
-        self.f.interpolate((1 + 4*pi*pi)*cos(self.x[0]*pi*2))
+        self.f.interpolate((1 + 4*pi*pi)*cos(self.x[0]*pi*2)*cos(self.y[0]*pi*2))
 
 
     def setup_form(self):
@@ -61,7 +61,7 @@ class Helmholtz:
 
 
     def setup_exact_solution(self):
-        self.u_exact_expr = cos(self.x[0]*pi*2)
+        self.u_exact_expr = cos(self.x[0]*pi*2)*cos(self.y[0]*pi*2)
                 
         
     def setup_bc(self):   
