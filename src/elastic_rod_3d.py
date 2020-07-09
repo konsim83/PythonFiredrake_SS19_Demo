@@ -94,29 +94,30 @@ class ElasticRod:
     # and advice PETSc to use a conjugate gradient method.
     def solve(self, options=None, **kwargs):
         # create rigid body modes
-#         x, y, z = SpatialCoordinate(self.mesh)
-#         b0 = Function(V)
-#         b1 = Function(V)
-#         b2 = Function(V)
-#         b3 = Function(V)
-#         b4 = Function(V)
-#         b5 = Function(V)
-#         b0.interpolate(Constant([1, 0]))
-#         b1.interpolate(Constant([0, 1]))
-#         b2.interpolate(Constant([0, 1]))
-#         b3.interpolate(as_vector([-y, x]))
-#         b4.interpolate(as_vector([-y, x]))
-#         b5.interpolate(as_vector([-y, x]))
-#         nullmodes = VectorSpaceBasis([b0, b1, b2])
-#         # Make sure they're orthonormal.
-#         nullmodes.orthonormalize()
+        x, y, z = SpatialCoordinate(self.mesh)
+        b0 = Function(self.V)
+        b1 = Function(self.V)
+        b2 = Function(self.V)
+        b3 = Function(self.V)
+        b4 = Function(self.V)
+        b5 = Function(self.V)
+        b0.interpolate(Constant([1, 0, 0]))
+        b1.interpolate(Constant([0, 1, 0]))
+        b2.interpolate(Constant([0, 0, 1]))
+        b3.interpolate(as_vector([y, -x, z]))
+        b4.interpolate(as_vector([z, y, -x]))
+        b5.interpolate(as_vector([x, z, -y]))
+        nullmodes = VectorSpaceBasis([b0, b1, b2, b3, b4, b5])
+        # Make sure they're orthonormal.
+        nullmodes.orthonormalize()
         
         self.uh = Function(self.V)            
         solve(self.a == self.L,
-              self.uh,
-              bcs=self.bc, 
-              solver_parameters=options,
-              **kwargs)
+            self.uh,
+            bcs=self.bc, 
+            solver_parameters=options,
+            near_nullspace=nullmodes,
+            **kwargs)
         
     ## Write solution as *.vtk
     #
